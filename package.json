@@ -1,0 +1,26 @@
+{
+  "name": "firebase-learnings",
+  "version": "1.0.0",
+  "description": "Project covering all important Firebase concepts like Auth, storage, firestore, cloud functions",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahima-manik/firebase-learnings.git"
+  },
+  "keywords": [
+    "firebase",
+    "google"
+  ],
+  "author": "mahima-manik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahima-manik/firebase-learnings/issues"
+  },
+  "homepage": "https://github.com/mahima-manik/firebase-learnings#readme",
+  "dependencies": {
+    "firebase": "^10.11.0"
+  }
+}
