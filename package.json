@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/mahima-manik/firebase-learnings#readme",
   "dependencies": {
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.11.0"
   },

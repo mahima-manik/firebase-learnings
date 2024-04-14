@@ -6,6 +6,17 @@ import {
     onAuthStateChanged, 
     signOut } from "firebase/auth";
 
+import { 
+    getStorage, 
+    ref, 
+    uploadBytes, 
+    uploadString, 
+    getDownloadURL, 
+    deleteObject } from "firebase/storage";
+
+import { format } from 'date-fns';
+import fs from 'fs';
+
 // Setup dotenv for environment variables
 import dotenv from 'dotenv';
 dotenv.config();
@@ -57,7 +68,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-/********************* Main code *********************/
+/********************* Running auth related code *********************/
 
 const USER_EMAIL = 'testuser@test.com';
 const USER_PASSWORD = 'testpassword';
@@ -69,3 +80,50 @@ try {
     authUser = await signInUser();
     console.log('User signed in with uid:', authUser.user.uid);
 }
+
+/********************* Storage related functions *********************/
+const storage = getStorage(app);
+const BUCKET_URL = `gs://${process.env.FIREBASE_STORAGE_BUCKET}`;
+
+const uploadTextData = async (data) => {
+    const formattedDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'");
+    const filePath = `${BUCKET_URL}/data/${authUser.user.uid}/${formattedDate}.txt`;
+    
+    const fileRef = ref(storage, filePath);
+    await uploadString(fileRef, data)
+    
+    // Returning storage reference for reuse in downloadData
+    return fileRef;
+}
+
+const downloadTextData = async (fileRef) => {
+    const download_url = await getDownloadURL(fileRef)
+    const data = await fetch(download_url).then(res => res.text());
+    return data;
+}
+
+const uploadImageData = async (file) => {
+    const formattedDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'");
+    const filePath = `${BUCKET_URL}/images/${authUser.user.uid}/${formattedDate}.jpg`;
+    
+    const fileRef = ref(storage, filePath);
+    await uploadBytes(fileRef, file)
+    
+    return fileRef;
+}
+
+const downloadImageData = async (fileRef) => {
+    const download_url = await getDownloadURL(fileRef)
+    const data = await fetch(download_url).then(res => res.blob());
+    return data;
+}
+
+const deleteFile = async (fileRef) => {
+    return deleteObject(fileRef);
+}
+
+/********************* Running storage related code *********************/
+
+const fileRef = await uploadTextData('Hello World');
+const dataString = await downloadTextData(fileRef);
+console.log(`Data at ${fileRef.name} is: ${dataString} \n\n`);
