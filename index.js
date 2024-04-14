@@ -140,3 +140,7 @@ const imageBlob = await downloadImageData(imageRef);
 const imageBuffer = Buffer.from(await imageBlob.arrayBuffer());
 fs.writeFileSync('downloaded_image.jpg', imageBuffer);
 console.log(`Image at ${imageRef.name} downloaded and saved as downloaded_image.jpg`);
+
+// Optional: Delete the uploaded files
+// await deleteFile(fileRef);
+// await deleteFile(imageRef);
