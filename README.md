@@ -4,12 +4,12 @@ NodeJS project covering all important Firebase concepts like Auth, storage, fire
 
 ### How to run
 
-Install dependencies listed in package.json using:
+1. Install dependencies listed in package.json using:
 ```
 npm install
 ```
 
-Add environment variables in .env file:
+2. Create `.env` file and add environment variables:
 ```
 FIREBASE_API_KEY=your_api_key
 FIREBASE_AUTH_DOMAIN=your_auth_domain

@@ -124,6 +124,19 @@ const deleteFile = async (fileRef) => {
 
 /********************* Running storage related code *********************/
 
+// Upload text data and download it back
 const fileRef = await uploadTextData('Hello World');
 const dataString = await downloadTextData(fileRef);
-console.log(`Data at ${fileRef.name} is: ${dataString} \n\n`);
+console.log(`\nData at ${fileRef.name} is: ${dataString} \n\n`);
+
+
+// Upload image data and download it back
+const imageFile = fs.readFileSync('test.jpg');
+const imageRef = await uploadImageData(imageFile);
+
+const imageBlob = await downloadImageData(imageRef);
+
+// Convert the image blob to buffer and save it as a file
+const imageBuffer = Buffer.from(await imageBlob.arrayBuffer());
+fs.writeFileSync('downloaded_image.jpg', imageBuffer);
+console.log(`Image at ${imageRef.name} downloaded and saved as downloaded_image.jpg`);
