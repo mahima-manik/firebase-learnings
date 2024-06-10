@@ -41,6 +41,10 @@ npm install @google-cloud/vision
 ```
 
 Add `"type": "module"` to `package.json` in functions directory.
+Added ESlint to the project, and configured it to work with NodeJS.
+```bash
+npm init @eslint/config // This will create eslint.config.js
+```
 
 ### Deploying Cloud functions
 
