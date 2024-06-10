@@ -1,5 +1,5 @@
 # firebase-learnings
-NodeJS project covering all important Firebase concepts like Auth, storage, firestore, cloud functions
+NodeJS project covering all important Firebase concepts like Auth, storage, firestore, cloud functions. I have talked about them in detail here: 
 
 
 ### How to run
@@ -19,6 +19,8 @@ FIREBASE_STORAGE_BUCKET=your_storage_bucket
 FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 FIREBASE_APP_ID=your_app_id
 ```
+
+To interact with the Firebase resources, we need to setup the configuration. Go to Firebase Console -> Project Settings. In the "Your Apps" section, go to Web Apps and choose the web version of your project. Under "SDK setup and configuration", you will find Firebase configuration. These configurations can be directly used in the code, but I have chosen to put them as environment variables.
 
 3. Run the project using:
 ```
