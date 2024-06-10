@@ -3,7 +3,8 @@ import {
     getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
-    onAuthStateChanged, 
+    onAuthStateChanged,
+    updateProfile,
     signOut } from "firebase/auth";
 
 import { 
@@ -67,6 +68,18 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+const updateDisplayName = async (newDisplayName) => {
+    if (!auth.currentUser) {
+        console.log('No user is currently signed in.');
+        return;
+    }
+    try {
+        await updateProfile(auth.currentUser, { displayName: newDisplayName });
+        console.log('Display name updated to:', newDisplayName);
+    } catch (error) {
+        console.error('Error updating display name:', error.message);
+    }
+}
 
 /********************* Running auth related code *********************/
 
@@ -78,7 +91,10 @@ try {
 } catch (error) {
     console.log('Error creating user:', error.message);
     authUser = await signInUser();
-    console.log('User signed in with uid:', authUser.user.uid);
+} finally {
+    await updateDisplayName('New User 2');
+    let displayNameAfter = authUser.user.displayName;
+    console.log('Display name after:', displayNameAfter);
 }
 
 /********************* Storage related functions *********************/
